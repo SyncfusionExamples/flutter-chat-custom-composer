@@ -54,7 +54,11 @@ class ChatScreenState extends State<ChatScreen> {
           decoration: _buildBoxDecoration(),
           child: Row(
             children: [
-              _buildActionButton(Icons.add_rounded, () {}),
+              _buildActionButton(Icons.add_rounded, () {
+                /* This button handles the add/attachment functionality.
+                 When pressed, it should open the attachment menu 
+                 allowing users to select various types of content to share. */
+              }),
               const SizedBox(width: 5.0),
               Expanded(child: _buildMessageInputField()),
               const SizedBox(width: 7.0),
