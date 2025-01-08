@@ -25,9 +25,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class ChatScreenState extends State<ChatScreen> {
-  final List<ChatMessage> _messages = [];
   final TextEditingController _controller = TextEditingController();
-
   @override
   void dispose() {
     _controller.dispose();
@@ -41,7 +39,7 @@ class ChatScreenState extends State<ChatScreen> {
         title: const Text('Chat Example'),
       ),
       body: SfChat(
-        messages: _messages,
+        messages: <ChatMessage>[],
         outgoingUser: '123-001',
         composer: _builderComposer(),
       ),
@@ -53,12 +51,12 @@ class ChatScreenState extends State<ChatScreen> {
       builder: (BuildContext context) {
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-          decoration: _boxDecoration(),
+          decoration: _buildBoxDecoration(),
           child: Row(
             children: [
-              _actionButton(Icons.add_rounded, () {}),
+              _buildActionButton(Icons.add_rounded, () {}),
               const SizedBox(width: 5.0),
-              Expanded(child: _messageInputField()),
+              Expanded(child: _buildMessageInputField()),
               const SizedBox(width: 7.0),
               const Icon(
                 Icons.send_rounded,
@@ -71,7 +69,7 @@ class ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  BoxDecoration _boxDecoration() {
+  BoxDecoration _buildBoxDecoration() {
     return BoxDecoration(
       borderRadius: BorderRadius.circular(10.0),
       boxShadow: [
@@ -84,7 +82,7 @@ class ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Widget _actionButton(IconData icon, VoidCallback onPressed) {
+  Widget _buildActionButton(IconData icon, VoidCallback onPressed) {
     return Container(
       decoration: const BoxDecoration(
         color: Color(0xFF433D8B),
@@ -97,7 +95,7 @@ class ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Widget _messageInputField() {
+  Widget _buildMessageInputField() {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -117,15 +115,15 @@ class ChatScreenState extends State<ChatScreen> {
             fontSize: 15.0,
             fontWeight: FontWeight.w400,
           ),
-          prefixIcon: _prefixIcons(),
-          suffixIcon: _suffixIcons(),
+          prefixIcon: _buildPrefixIcons(),
+          suffixIcon: _buildSuffixIcons(),
           border: InputBorder.none,
         ),
       ),
     );
   }
 
-  Widget _prefixIcons() {
+  Widget _buildPrefixIcons() {
     return Padding(
       padding: const EdgeInsets.only(right: 5.0),
       child: IconButton(
@@ -135,13 +133,15 @@ class ChatScreenState extends State<ChatScreen> {
           size: 20.0,
         ),
         onPressed: () {
-          // you can handle the action button logic here.
+          /* This button handles the email mention functionality.
+             When pressed, it should trigger the mention picker dialog
+             allowing users to tag/mention other users in the input. */
         },
       ),
     );
   }
 
-  Widget _suffixIcons() {
+  Widget _buildSuffixIcons() {
     return Padding(
       padding: const EdgeInsets.only(right: 5.0),
       child: Row(
@@ -154,7 +154,9 @@ class ChatScreenState extends State<ChatScreen> {
               size: 20.0,
             ),
             onPressed: () {
-              // you can handle the action button logic here.
+              /* This button initiates voice recording functionality.
+                 When pressed, it should open the audio recorder 
+                 allowing users to send voice messages. */
             },
           ),
           IconButton(
@@ -164,7 +166,9 @@ class ChatScreenState extends State<ChatScreen> {
               size: 20.0,
             ),
             onPressed: () {
-              // you can handle the action button logic here.
+              /* This button handles the camera/image functionality.
+                 When pressed, it should open the image picker 
+                 allowing users to capture or select photos to send. */
             },
           ),
         ],
