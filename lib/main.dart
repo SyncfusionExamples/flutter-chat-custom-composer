@@ -26,6 +26,27 @@ class ChatScreen extends StatefulWidget {
 
 class ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
+
+  // Initial messages to display in the chat
+  final List<ChatMessage> _messages = [
+    ChatMessage(
+      text: 'Hey, how are you?',
+      author: const ChatAuthor(
+        id: '123-001',
+        name: 'Peter',
+      ),
+      time: DateTime.now().subtract(const Duration(minutes: 5)),
+    ),
+    ChatMessage(
+      text: 'I am good, thanks! How about you?',
+      author: const ChatAuthor(
+        id: '123-002',
+        name: 'Master',
+      ),
+      time: DateTime.now().subtract(const Duration(minutes: 4)),
+    ),
+  ];
+
   @override
   void dispose() {
     _controller.dispose();
@@ -35,11 +56,8 @@ class ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Chat Example'),
-      ),
       body: SfChat(
-        messages: <ChatMessage>[],
+        messages: _messages, // Set initial messages
         outgoingUser: '123-001',
         composer: _builderComposer(),
       ),
@@ -113,7 +131,7 @@ class ChatScreenState extends State<ChatScreen> {
           isDense: true,
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
-          hintText: 'Type a Message...',
+          hintText: 'Message...',
           hintStyle: TextStyle(
             color: Colors.grey.shade600,
             fontSize: 15.0,
